@@ -8,6 +8,7 @@ data class WeatherResponse(
     val timezone: String,
     val elevation: Double,
     val daily: Daily,
+    val hourly: Hourly,
     @SerializedName("generationtime_ms") val generationTimeMs: Double,
     @SerializedName("utc_offset_seconds") val utcOffsetSeconds: Int,
     @SerializedName("timezone_abbreviation") val timezoneAbbreviation: String,
@@ -28,4 +29,16 @@ data class Daily(
     @SerializedName("weathercode") val weatherCode: List<Int>,
     @SerializedName("temperature_2m_max") val temperature2mMax: List<Double>,
     @SerializedName("uv_index_max") val uvIndexMax: List<Double>
+)
+
+data class HourlyUnits(
+    val time: String,
+    @SerializedName("temperature_2m") val temperature2m: String,
+    @SerializedName("weathercode") val weatherCode: String
+)
+
+data class Hourly(
+    val time: List<String>,
+    @SerializedName("temperature_2m") val temperature2m: List<Double>,
+    @SerializedName("weathercode") val weatherCode: List<Int>
 )

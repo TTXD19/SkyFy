@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SkyFySample</string>
+
+    <string name="hourly_weather_title">每小時天氣</string>
+    <string name="daily_weather_title">每週預報</string>
+
+    <string name="weather_unit">%s°C</string>
 </resources>

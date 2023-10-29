@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default padding and margin values -->
+    <dimen name="ten_dp_spacing">10dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+
+    <!-- Specific component dimensions -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="text_size_large">24sp</dimen>
+</resources>

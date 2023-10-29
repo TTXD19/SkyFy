@@ -14,7 +14,7 @@ class WeatherRepository {
 
     suspend fun getWeatherInfo(latitude: Double, longitude: Double): DataResult<WeatherDto> {
         try {
-            val weatherResponse = apiService.getWeatherInfo(latitude, longitude)
+            val weatherResponse = apiService.getWeatherInfoDaily(latitude, longitude)
             if (weatherResponse.isSuccessful) {
                 val weatherDto = weatherResponse.body()?.toDto() ?: WeatherDto()
                 return DataResult.Success(weatherDto)

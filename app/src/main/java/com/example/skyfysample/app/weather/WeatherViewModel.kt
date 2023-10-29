@@ -13,7 +13,7 @@ class WeatherViewModel : ViewModel() {
 
     private val weatherRepository = WeatherRepository()
 
-    val weatherLiveData: MutableLiveData<WeatherDto> = MutableLiveData()
+    val weatherLiveData: MutableLiveData<WeatherDto?> = MutableLiveData()
 
 
     fun getWeatherInfo() {
