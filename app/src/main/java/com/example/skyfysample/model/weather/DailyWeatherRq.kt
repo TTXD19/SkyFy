@@ -1,5 +1,5 @@
 package com.example.skyfysample.model.weather
 
-data class WeatherRequest(
+data class DailyWeatherRq(
     val test: String
 )

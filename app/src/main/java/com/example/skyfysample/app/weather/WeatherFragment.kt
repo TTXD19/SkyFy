@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.skyfysample.R
+import com.example.skyfysample.app.location_detail.LocationDetailActivity
 import com.example.skyfysample.databinding.FragmentWeatherBinding
-import com.example.skyfysample.model.weather.DailyForecast
+import com.example.skyfysample.model.dto.DailyForecastDto
 import com.example.skyfysample.widget.WeatherType
 import com.example.skyfysample.widget.WeatherWidget
 
@@ -48,11 +49,12 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListeners()
         viewModel.getWeatherInfo()
         viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            weatherAdapter.submitList(it?.hourlyForecasts)
-            weatherDailyAdapter.submitList(it?.dailyForecasts)
-            initGeneralView(it?.dailyForecasts?.first())
+            weatherAdapter.submitList(it?.dailyForecastDtos)
+            weatherDailyAdapter.submitList(it?.dailyForecastDtos)
+            initGeneralView(it?.dailyForecastDtos?.first())
         }
     }
 
@@ -103,16 +105,25 @@ class WeatherFragment : Fragment() {
         }
     }
 
-    private fun initGeneralView(dailyForecast: DailyForecast?) {
-        dailyForecast?.also {
+    private fun initListeners() {
+        binding.clWeather.setOnClickListener {
+            activity?.also {
+                LocationDetailActivity.newInstance(it)
+            }
+        }
+    }
+
+    private fun initGeneralView(dailyForecastDto: DailyForecastDto?) {
+        dailyForecastDto?.also {
             binding.apply {
-                tvDate.text = dailyForecast.time
+                tvDate.text = dailyForecastDto.time
                 tvTime.text = "3.30 PM"
                 tvLocation.text = "台北市"
                 tvUpdatedTime.text = "上次更新時間：3.00 PM"
-                tvDegree.text = getString(R.string.weather_unit, dailyForecast.maxTemperature.toString())
+                tvDegree.text =
+                    getString(R.string.weather_unit, dailyForecastDto.maxTemperature.toString())
                 imgWeatherStatus.setImageResource(
-                    when (WeatherWidget.getWeatherType(dailyForecast.weatherCode)) {
+                    when (WeatherWidget.getWeatherType(dailyForecastDto.weatherCode)) {
                         WeatherType.SUNNY -> R.drawable.sunny
                         WeatherType.CLOUDY -> R.drawable.cloudy
                         WeatherType.FREEZING -> R.drawable.freezing

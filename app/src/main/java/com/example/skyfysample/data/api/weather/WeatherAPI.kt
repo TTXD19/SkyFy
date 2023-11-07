@@ -1,6 +1,7 @@
 package com.example.skyfysample.data.api.weather
 
-import com.example.skyfysample.model.weather.WeatherResponse
+import com.example.skyfysample.model.weather.DailyWeatherRs
+import com.example.skyfysample.model.weather.HourlyWeatherRs
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +15,14 @@ interface WeatherAPI {
         @Query("daily") daily: String = "weathercode,temperature_2m_max,sunset,uv_index_max",
         @Query("hourly") hourly: String = "temperature_2m,weathercode",
         @Query("timezone") timezone: String = "auto"
-    ): Response<WeatherResponse>
+    ): Response<DailyWeatherRs>
+
+    @GET("v1/forecast")
+    suspend fun getWeatherInfoHourly(
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Query("forecast_days") forecastDays: String,
+        @Query("hourly") hourly: String = "temperature_2m,weathercode",
+        @Query("timezone") timezone: String = "auto"
+    ): Response<HourlyWeatherRs>
 }

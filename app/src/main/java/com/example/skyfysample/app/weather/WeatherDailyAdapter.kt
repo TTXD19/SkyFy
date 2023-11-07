@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skyfysample.R
 import com.example.skyfysample.databinding.ItemWeatherPerDailyVhBinding
-import com.example.skyfysample.model.weather.DailyForecast
-import com.example.skyfysample.widget.TimeCustomWidget
+import com.example.skyfysample.model.dto.DailyForecastDto
 import com.example.skyfysample.widget.WeatherType
 import com.example.skyfysample.widget.WeatherWidget
 
 class WeatherDailyAdapter :
-    ListAdapter<DailyForecast, WeatherDailyAdapter.WeatherItemViewHolder>(ItemDiffUtil()) {
+    ListAdapter<DailyForecastDto, WeatherDailyAdapter.WeatherItemViewHolder>(ItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherItemViewHolder {
         return WeatherItemViewHolder(
@@ -29,12 +28,12 @@ class WeatherDailyAdapter :
         currentList.getOrNull(position)?.also { holder.initView(it) }
     }
 
-    class ItemDiffUtil : DiffUtil.ItemCallback<DailyForecast>() {
-        override fun areItemsTheSame(oldItem: DailyForecast, newItem: DailyForecast): Boolean {
+    class ItemDiffUtil : DiffUtil.ItemCallback<DailyForecastDto>() {
+        override fun areItemsTheSame(oldItem: DailyForecastDto, newItem: DailyForecastDto): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: DailyForecast, newItem: DailyForecast): Boolean {
+        override fun areContentsTheSame(oldItem: DailyForecastDto, newItem: DailyForecastDto): Boolean {
             return oldItem == newItem
         }
     }
@@ -43,15 +42,15 @@ class WeatherDailyAdapter :
     inner class WeatherItemViewHolder(private val binding: ItemWeatherPerDailyVhBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun initView(dailyForecast: DailyForecast) {
+        fun initView(dailyForecastDto: DailyForecastDto) {
             binding.apply {
-                tvDay.text = dailyForecast.date
+                tvDay.text = dailyForecastDto.date
                 tvTemp.text = this.root.context.getString(
                     R.string.weather_unit,
-                    dailyForecast.maxTemperature.toString()
+                    dailyForecastDto.maxTemperature.toString()
                 )
                 imgWeatherStatus.setImageResource(
-                    when (WeatherWidget.getWeatherType(dailyForecast.weatherCode)) {
+                    when (WeatherWidget.getWeatherType(dailyForecastDto.weatherCode)) {
                         WeatherType.SUNNY -> R.drawable.sunny
                         WeatherType.CLOUDY -> R.drawable.cloudy
                         WeatherType.FREEZING -> R.drawable.freezing
