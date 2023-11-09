@@ -20,16 +20,9 @@ import com.example.skyfysample.widget.WeatherWidget
 class WeatherFragment : Fragment() {
 
     private lateinit var binding: FragmentWeatherBinding
-
     private val viewModel: WeatherViewModel by viewModels()
-
-    private val weatherAdapter: WeatherAdapter by lazy {
-        WeatherAdapter()
-    }
-
-    private val weatherDailyAdapter: WeatherDailyAdapter by lazy {
-        WeatherDailyAdapter()
-    }
+    private val weatherAdapter: WeatherAdapter by lazy { WeatherAdapter() }
+    private val weatherDailyAdapter: WeatherDailyAdapter by lazy { WeatherDailyAdapter() }
 
     companion object {
         fun newInstance(): WeatherFragment {
@@ -71,8 +64,7 @@ class WeatherFragment : Fragment() {
                 ) {
                     val position = parent.getChildAdapterPosition(view)
                     if (position != 0) {
-                        val leftSpacing =
-                            parent.context.resources.getDimensionPixelSize(R.dimen.ten_dp_spacing)
+                        val leftSpacing = parent.context.resources.getDimensionPixelSize(R.dimen.ten_dp_spacing)
                         outRect.left = leftSpacing
                         outRect.right = 0
                         outRect.bottom = 0
@@ -120,8 +112,7 @@ class WeatherFragment : Fragment() {
                 tvTime.text = "3.30 PM"
                 tvLocation.text = "台北市"
                 tvUpdatedTime.text = "上次更新時間：3.00 PM"
-                tvDegree.text =
-                    getString(R.string.weather_unit, dailyForecastDto.maxTemperature.toString())
+                tvDegree.text = getString(R.string.weather_unit, dailyForecastDto.maxTemperature.toString())
                 imgWeatherStatus.setImageResource(
                     when (WeatherWidget.getWeatherType(dailyForecastDto.weatherCode)) {
                         WeatherType.SUNNY -> R.drawable.sunny

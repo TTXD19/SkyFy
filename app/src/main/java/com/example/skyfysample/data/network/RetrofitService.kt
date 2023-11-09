@@ -9,6 +9,7 @@ class RetrofitService {
 
     companion object {
         private const val BASE_URL = "https://api.open-meteo.com/"
+        private const val BASE_AQI_URL = "https://air-quality-api.open-meteo.com/"
 
         private val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -20,6 +21,12 @@ class RetrofitService {
 
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        val aqiRetrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(BASE_AQI_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
